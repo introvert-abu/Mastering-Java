@@ -1,20 +1,27 @@
 public class FindInMountainarray {
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
         System.out.println(finalAnswer());
+        long endTime = System.nanoTime();
+        double time = ((double)endTime-startTime)/1000000;
+        System.out.println(time);
     }
 
     static int finalAnswer() {
         int[] arr = { 1, 3, 4, 5, 6, 3, 1 };
-        int target = 3;
+        int target = 1;
         if (arr.length < 3) {
             return orderAgnosticBinarySearch(arr, target, 0, arr.length - 1);
         } else {
             int peak = findPeakElement(arr);
-            int firstSearch = orderAgnosticBinarySearch(arr, target, 0, peak);
+            if (arr[peak] == target) {
+                return peak;
+            }
+            int firstSearch = orderAgnosticBinarySearch(arr, target, 0, peak - 1);
             if (firstSearch != -1) {
                 return firstSearch;
             } else {
-                return orderAgnosticBinarySearch(arr, target, peak, arr.length -1 );
+                return orderAgnosticBinarySearch(arr, target, peak + 1, arr.length -1 );
             }
         }
     }

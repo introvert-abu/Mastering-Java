@@ -3,6 +3,7 @@ public class Armstong {
         for (int i = 100; i < 1000; i++) {
             if(isArmstrong(i)){
                 System.out.println(i);
+                
             }
         }
     }

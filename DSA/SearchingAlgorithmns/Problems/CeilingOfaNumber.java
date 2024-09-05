@@ -1,3 +1,5 @@
+package Problems;
+
 public class CeilingOfaNumber {
     public static void main(String[] args) {
         int[] arr = { 2, 3, 4, 6, 8, 9, 22, 44, 66 };
