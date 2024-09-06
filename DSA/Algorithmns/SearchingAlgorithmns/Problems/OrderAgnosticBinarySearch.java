@@ -1,3 +1,5 @@
+package Problems;
+
 public class OrderAgnosticBinarySearch {
     public static void main(String[] args) {
         int[] arr = { 8, 6, 4, 3, 2, 1 };

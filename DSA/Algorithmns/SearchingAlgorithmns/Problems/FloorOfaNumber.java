@@ -1,3 +1,5 @@
+package Problems;
+
 public class FloorOfaNumber {
     public static void main(String[] args) {
         int[] arr = { 2, 3, 4, 6, 7, 8, 22, 44, 66 };

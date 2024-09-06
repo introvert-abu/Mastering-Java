@@ -1,43 +1,32 @@
 package Leetcode.Sorting;
+import java.util.Arrays;
 
 public class FirstMissingPositive {
     public static void main(String[] args) {
         int[] arr = { 3, 4, -1, 1 };
         System.out.println(firstMissingPositive(arr));
+        System.out.println(Arrays.toString(arr));
     }
 
     static int firstMissingPositive(int[] nums) {
-        int min = nums[0];
-        int max = nums[0];
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] < min) {
-                min = nums[i];
-            }
-            if (nums[i] > max) {
-                max = nums[i];
-            }
-        }
-        return missingNumber(nums, min, max);
-    }
-
-    static int missingNumber(int[] nums, int min, int max) {
-        int n = max;
         int i = 0;
-        while (i < n) {
-            int correct = nums[i] - min;
-            if (nums[i] != n && nums[i] != nums[correct]) {
+        while (i < nums.length) {
+            int correct = nums[i] - 1;
+            if (nums[i] > 0 && nums[i] <= nums.length && nums[i] != nums[correct]) {
                 int temp = nums[i];
                 nums[i] = nums[correct];
-                nums[correct] = temp;
+                nums[correct] = temp;                
             } else {
                 i++;
             }
         }
-        for (int j = 0; j < n; j++) {
-            if (nums[j] != j) {
-                return j;
+
+        for (int index = 0; index < nums.length; index++) {
+            if (nums[index] != index + 1) {
+                return index + 1;
             }
         }
-        return n;
+
+        return nums.length + 1;
     }
 }

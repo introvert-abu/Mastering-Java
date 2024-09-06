@@ -1,3 +1,5 @@
+package Problems;
+
 public class RotationCount {
     public static void main(String[] args) {
         int[] nums = { 15, 18, 2, 3, 6, 12 };

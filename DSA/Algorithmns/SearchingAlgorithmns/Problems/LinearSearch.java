@@ -1,3 +1,5 @@
+package Problems;
+
 public class LinearSearch {
     public static void main(String[] args) {
         int[] arr = { 2, 4, 67, 8, 9 };
