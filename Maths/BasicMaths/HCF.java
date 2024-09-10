@@ -1,8 +1,9 @@
 public class HCF {
     public static void main(String[] args) {
-        System.out.println(hcf(12,18));
-        int ans = recursiveHCF(6, 12);
+        System.out.println(hcf(12, 18));
+        int ans = recursiveHCF(20, 10);
         System.out.println(ans);
+        System.out.println(euclidenAlgo(20, 10));
     }
 
     // O(root(n))
@@ -18,6 +19,14 @@ public class HCF {
             }
         }
         return hcf;
+    }
+
+    static int euclidenAlgo(int a, int b) {
+        while (a > 0 && b > 0) {
+            if (a > b) a = a % b;
+            else b = b % a;
+        }
+        return a > 0 ? a : b;
     }
 
     // O(log(min(a, b)))
