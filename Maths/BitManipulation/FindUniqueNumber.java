@@ -1,5 +1,3 @@
-package Maths.BitManipulatio;
-
 class FindUniqueNumber {
     static int findUnique(int[] nums) {
         int result = 0;

@@ -1,5 +1,3 @@
-package Maths.BitManipulatio;
-
 public class FindTheBit {
     public static void main(String[] args) {
         System.out.println(findBit(5, 3));

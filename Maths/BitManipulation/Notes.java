@@ -1,5 +1,3 @@
-package Maths.BitManipulatio;
-
 public class Notes {
     public static void main(String[] args) {
         System.out.println(6 & 1111); // both is true gives 1

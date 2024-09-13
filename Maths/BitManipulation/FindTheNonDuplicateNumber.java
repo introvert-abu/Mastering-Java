@@ -1,5 +1,3 @@
-package Maths.BitManipulatio;
-
 public class FindTheNonDuplicateNumber {
     public static void main(String[] args) {
         int[] arr = {2,4,3,5,4,3,2};

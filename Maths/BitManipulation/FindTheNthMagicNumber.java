@@ -1,5 +1,3 @@
-package Maths.BitManipulatio;
-
 public class FindTheNthMagicNumber {
     public static void main(String[] args) {
         System.out.println(fintNum(4));
