@@ -2,7 +2,7 @@ package OOPS;
 
 public class Notes {
     public static void main(String[] args) {
-        Students[] student = new Students[5];
+        // Students[] student = new Students[5];
         // System.out.println(Arrays.toString(student));
         // student[0] = new Students();
         // student[0].rno = 21;
@@ -12,19 +12,29 @@ public class Notes {
         // System.out.println(student[0].dept);
 
         // Assigning values using Constuctor
-        student[1] = new Students();
-        student[2] = new Students(22, "CS", 99.2f);
-        student[3] = new Students(student[2]);
+        // student[1] = new Students();
+        // student[2] = new Students(22, "CS", 99.2f);
+        // student[3] = new Students(student[2]);
 
-        for (int i = 1; i <= 3; i++) {
-            if (i == 3) {
-                System.out.println("Copied from above Using constructor");
-            }
-            System.out.print(student[i].rno + " - ");
-            System.out.print(student[i].mark + " - ");
-            System.out.print(student[i].dept);
-            System.out.println();
+        // for (int i = 1; i <= 3; i++) {
+        //     if (i == 3) {
+        //         System.out.println("Copied from above Using constructor");
+        //     }
+        //     System.out.print(student[i].rno + " - ");
+        //     System.out.print(student[i].mark + " - ");
+        //     System.out.print(student[i].dept);
+        //     System.out.println();
+        // }
+        
+        Object[] obj = new Object[5];
+        obj[0] = "Abu";
+        obj[1] = 21;
+        obj[2] = new int[]{1,2,3,4,5};
+
+        for (int i = 0; i < obj.length; i++) {
+            System.out.println(obj[i]);
         }
+
     }
 }
 
