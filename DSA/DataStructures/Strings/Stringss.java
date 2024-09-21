@@ -1,4 +1,4 @@
-package Stringsss;
+package DSA.DataStructures.Strings;
 import java.util.Arrays;
 
 public class Stringss {

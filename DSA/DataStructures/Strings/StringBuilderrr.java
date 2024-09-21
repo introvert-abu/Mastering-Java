@@ -1,4 +1,4 @@
-package Stringsss;
+package DSA.DataStructures.Strings;
 
 public class StringBuilderrr {
     public static void main(String[] args) {

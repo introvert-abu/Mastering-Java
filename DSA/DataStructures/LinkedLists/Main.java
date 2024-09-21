@@ -58,12 +58,11 @@ public class Main {
         ll.insertRec(2, 2);
         ll.insertRec(3, 3);
         ll.display();
-        ll.insertRec(0, 4);
-        ll.insertRec(4, 5);
+        ll.insertRecKunal(0, 0);
+        ll.insertRecKunal(4, 3);
         ll.display();
-        ll.insertRecKunal(0, 5);
-        ll.insertRecKunal(6, 6);
         ll.display();
         ll.removeDuplicates();
+        ll.display();
     }
 }
