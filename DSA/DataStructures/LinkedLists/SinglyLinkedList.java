@@ -64,7 +64,7 @@ public class SinglyLinkedList {
             return;
         }
 
-        Node prev = this.get(index-1);
+        Node prev = this.get(index - 1);
         Node node = new Node(val, prev.next);
         prev.next = node;
 
@@ -113,6 +113,66 @@ public class SinglyLinkedList {
         return val;
     }
 
+    // Inserting Using Recursion
+    public void insertRec(int index, int val) {
+        Node temp = this.head;
+        insertRec(index, val, temp);
+    }
+
+    private void insertRec(int index, int val, Node temp) {
+        if (index == 0) {
+            Node node = new Node(val);
+            node.next = this.head;
+            this.head = node;
+            this.size++;
+
+            return;
+        }
+        if (index == 1) {
+            Node node = new Node(val);
+            node.next = temp.next;
+            temp.next = node;
+            this.size++;
+
+            return;
+        }
+
+        insertRec(index - 1, val, temp.next);
+    }
+
+    // Insert Using Recursion Using Kunal Kushwaha Method
+    public void insertRecKunal(int index, int val) {
+        this.head = insertRecKunal(index, val, head);
+    }
+
+    private Node insertRecKunal(int index, int val, Node node) {
+        if (index == 0) {
+            Node newNode = new Node(val);
+            newNode.next = node;
+            this.size++;
+
+            return newNode;
+        }
+        node.next = insertRecKunal(index - 1, val, node.next);
+
+        return node;
+    }
+
+    // Remove Duplicates
+    public void removeDuplicates() {
+        Node temp = this.head;
+        while (temp != null && temp.next != null) {
+            if (temp.val == temp.next.val) {
+                temp.next = temp.next.next;
+                this.size--;
+            } else {
+                temp = temp.next;
+            }
+        }
+        this.tail = temp;
+        this.tail.next = null;
+    }
+
     // Getters
     public int getHead() {
         return this.head.val;
@@ -121,7 +181,6 @@ public class SinglyLinkedList {
     public int getTail() {
         return this.tail.val;
     }
-
 
     public int size() {
         return this.size;

@@ -40,8 +40,8 @@ public class Main {
         ll.display();
         ll.displayDsc();
         System.out.println("Size : "+ll.size());
-        */
 
+        // CLL
         CircularLL ll = new CircularLL();
         ll.insert(0);
         ll.insert(1);
@@ -49,5 +49,21 @@ public class Main {
         ll.insert(3);
         ll.delete(3);
         ll.display();
+        */
+
+
+        SinglyLinkedList ll = new SinglyLinkedList();
+        ll.insertRec(0, 0);
+        ll.insertRec(1, 1);
+        ll.insertRec(2, 2);
+        ll.insertRec(3, 3);
+        ll.display();
+        ll.insertRec(0, 4);
+        ll.insertRec(4, 5);
+        ll.display();
+        ll.insertRecKunal(0, 5);
+        ll.insertRecKunal(6, 6);
+        ll.display();
+        ll.removeDuplicates();
     }
 }
