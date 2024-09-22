@@ -48,10 +48,9 @@ public class Main {
         ll.insert(2);
         ll.insert(3);
         ll.delete(3);
-        ll.display();
-        */
-
-
+        ll.display();        
+        
+        // Problems
         SinglyLinkedList ll = new SinglyLinkedList();
         ll.insertRec(0, 0);
         ll.insertRec(1, 1);
@@ -63,6 +62,27 @@ public class Main {
         ll.display();
         ll.display();
         ll.removeDuplicates();
+        ll.display();
+        */
+
+        // SinglyLinkedList l1 = new SinglyLinkedList();
+        // SinglyLinkedList l2 = new SinglyLinkedList();
+        // l1.insertLast(0);
+        // l1.insertLast(1);
+        // l1.insertLast(2);
+        // l2.insertLast(0);
+        // l2.insertLast(1);
+        // l2.insertLast(2);
+
+        // SinglyLinkedList l3 = SinglyLinkedList.merge(l1, l2);
+        // l3.display();
+
+        SinglyLinkedList ll = new SinglyLinkedList();
+        for (int i = 1; i <= 5; i++) {
+            ll.insertLast(i);
+        }
+        ll.display();
+        ll.revHalf();
         ll.display();
     }
 }

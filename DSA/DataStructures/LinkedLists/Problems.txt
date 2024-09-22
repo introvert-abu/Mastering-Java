@@ -1,2 +1,15 @@
-1. Insert Using Recursion - At SinglyLinkedList File
-2. Remove Duplicates from LL - https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/
+1. Insert Using Recursion - At SinglyLinkedList Source File;
+2. Remove Duplicates from LL - https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/;
+3. Merge Two Sorted Lists - https://leetcode.com/problems/merge-two-sorted-lists/description/;
+4. Linked List Cycle - https://leetcode.com/problems/linked-list-cycle/description/;
+5. Length Of The Cycle - Nothing just use the algorithmn as before when s and f meets run a loop until slow meets fast again and increase length + 1 and when it finds return length;
+6. Linked List Cycle 2 - https://leetcode.com/problems/linked-list-cycle-ii/description/;
+7. Happy Number - https://leetcode.com/problems/happy-number/description/;
+8. Middle Of The Linked List - https://leetcode.com/problems/middle-of-the-linked-list/description/;
+9. Sort List - https://leetcode.com/problems/sort-list/description/;
+10. Reverse LL using Recursion - At SinglyLinkedList Source File;
+11. Reverse LL via Iteration - https://leetcode.com/problems/reverse-linked-list/description/;
+12. Reverse LL 2 - https://leetcode.com/problems/reverse-linked-list-ii/description/;
+13. Palindrome LL - https://leetcode.com/problems/palindrome-linked-list/description/;
+14. Reorder LL - https://leetcode.com/problems/reorder-list/description/;
+15. Rotate LL - https://leetcode.com/problems/rotate-list/description/;

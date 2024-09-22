@@ -173,6 +173,135 @@ public class SinglyLinkedList {
         this.tail.next = null;
     }
 
+    // MergeLists
+    public static SinglyLinkedList merge(SinglyLinkedList list1, SinglyLinkedList list2) {
+        Node l = list1.head;
+        Node r = list2.head;
+        SinglyLinkedList mergedList = new SinglyLinkedList();
+        while (l != null && r != null) {
+            if (l.val < r.val) {
+                mergedList.insertLast(l.val);
+                l = l.next;
+            } else {
+                mergedList.insertLast(r.val);
+                r = r.next;
+            }
+        }
+
+        while (l != null) {
+            mergedList.insertLast(l.val);
+            l = l.next;
+        }
+
+        while (r != null) {
+            mergedList.insertLast(r.val);
+            r = r.next;
+        }
+
+        return mergedList;
+    }
+
+    // BubbleSort
+    public void bubbleSort() {
+        helper(this.size - 1, 0);
+    }
+
+    private void helper(int row, int col) {
+        if (row == 0) {
+            return;
+        }
+
+        if (row > col) {
+            Node first = get(col);
+            Node second = get(col + 1);
+
+            if (first.val > second.val) {
+                if (first == head) {
+                    this.head = second;
+                    first.next = second.next;
+                    second.next = first;
+                } else if (second == tail) {
+                    Node prev = get(col - 1);
+                    this.tail = first;
+                    prev.next = second;
+                    second.next = first;
+                    tail.next = null;
+                } else {
+                    Node prev = get(col - 1);
+                    first.next = second.next;
+                    prev.next = second;
+                    second.next = first;
+                }
+            }
+            helper(row, col + 1);
+        } else {
+            helper(row - 1, 0);
+        }
+    }
+
+    // Recursion Reverse
+    public void reverse() {
+        rev(head);
+    }
+
+    private void rev(Node node) {
+        if (node == tail) {
+            head = tail;
+            return;
+        }
+        rev(node.next);
+
+        tail.next = node;
+        tail = node;
+        tail.next = null;
+    }
+
+    public void revHalf() {
+        Node mid = findMid(this.head);
+        Node fh = this.head;
+        Node sh = reverse(mid.next);
+        while (fh != null && sh != null) {
+            Node temp = fh.next;
+            fh.next = sh;
+            fh = temp;
+            temp = sh.next;
+            sh.next = fh;
+            sh = temp;
+        }
+
+        if (fh != null) fh.next = null;
+    }
+
+    private Node reverse(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node prev = null;
+        Node curr = head;
+        Node next = curr;
+        while (next != null) {
+            next = next.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    private Node findMid(Node node) {
+        if (node == null || node.next == null) return node;
+        Node s = node; 
+        Node f = node;
+        while (f != null && f.next != null) {
+            s = s.next;
+            f = f.next.next;
+        } 
+        
+        return s;
+    }
+
     // Getters
     public int getHead() {
         return this.head.val;
