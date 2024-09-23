@@ -21,7 +21,7 @@ public class CustomArrayList {
     }
 
     private void resize() {
-        int[] temp = new int[this.arr.length + 1];
+        int[] temp = new int[this.arr.length * 2];
         for (int i = 0; i < this.arr.length; i++) {
             temp[i] = this.arr[i];
         }
@@ -29,16 +29,6 @@ public class CustomArrayList {
     }
 
     public void remove(int index) {
-        int[] temp = new int[this.arr.length - 1];
-        for (int i = 0; i < this.arr.length; i++) {
-            if(i < index) {
-                temp[i] = this.arr[i];
-            }
-            if (i > index) {
-                temp[i-1] = this.arr[i];
-            }
-        }
-        this.arr = temp;
         size--;
     }
 
