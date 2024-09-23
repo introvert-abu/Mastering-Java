@@ -2,7 +2,6 @@ package DSA.DataStructures.LinkedLists;
 
 // Data Container
 public class SinglyLinkedList {
-
     // Data
     private class Node {
         private int val;
@@ -116,28 +115,35 @@ public class SinglyLinkedList {
     // Inserting Using Recursion
     public void insertRec(int index, int val) {
         Node temp = this.head;
-        insertRec(index, val, temp);
+        insertRecHelper(index, val, temp);
     }
 
-    private void insertRec(int index, int val, Node temp) {
+    private void insertRecHelper(int index, int val, Node node) {
         if (index == 0) {
-            Node node = new Node(val);
-            node.next = this.head;
-            this.head = node;
+            Node newNode = new Node(val);
+            newNode.next = this.head;
+            this.head = newNode;
+            if (tail == null) {
+                this.tail = head;
+            }
             this.size++;
-
             return;
-        }
-        if (index == 1) {
-            Node node = new Node(val);
-            node.next = temp.next;
-            temp.next = node;
+        } else if (index == 1) {
+            Node newNode = new Node(val);
+            newNode.next = node.next;
+            node.next = newNode;
+            this.tail = this.tail.next;
             this.size++;
-
             return;
-        }
+        } else if (index == size) {
+            Node newNode = new Node(val);
+            this.tail.next = newNode;
+            this.tail = newNode;
+            this.size++;
+            return;
+        } 
 
-        insertRec(index - 1, val, temp.next);
+        insertRecHelper(index - 1, val, node.next);
     }
 
     // Insert Using Recursion Using Kunal Kushwaha Method
@@ -241,7 +247,7 @@ public class SinglyLinkedList {
 
     // Recursion Reverse
     public void reverse() {
-        rev(head);
+        rev(this.head);
     }
 
     private void rev(Node node) {
@@ -269,7 +275,8 @@ public class SinglyLinkedList {
             sh = temp;
         }
 
-        if (fh != null) fh.next = null;
+        if (fh != null)
+            fh.next = null;
     }
 
     private Node reverse(Node head) {
@@ -291,14 +298,15 @@ public class SinglyLinkedList {
     }
 
     private Node findMid(Node node) {
-        if (node == null || node.next == null) return node;
-        Node s = node; 
+        if (node == null || node.next == null)
+            return node;
+        Node s = node;
         Node f = node;
         while (f != null && f.next != null) {
             s = s.next;
             f = f.next.next;
-        } 
-        
+        }
+
         return s;
     }
 
@@ -351,5 +359,7 @@ public class SinglyLinkedList {
             temp = temp.next;
         }
         System.out.println("END");
+        System.out.println("Head : "+this.head.val);
+        System.out.println("Tail : "+this.tail.val);
     }
 }
