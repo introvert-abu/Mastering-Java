@@ -1,4 +1,4 @@
-package DSA.Algorithmns.Array.SortingAlgorithmns.SortingAlgorithms;
+package DSA.Algorithmns.Array.SortingAlgorithmns;
 import java.util.Arrays;
 
 public class InsertionSort {

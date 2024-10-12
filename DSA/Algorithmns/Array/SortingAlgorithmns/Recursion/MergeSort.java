@@ -1,4 +1,4 @@
-package DSA.Algorithmns.Array.SortingAlgorithmns.SortingAlgorithms.Recursion;
+package DSA.Algorithmns.Array.SortingAlgorithmns.Recursion;
 import java.util.Arrays;
 
 public class MergeSort {

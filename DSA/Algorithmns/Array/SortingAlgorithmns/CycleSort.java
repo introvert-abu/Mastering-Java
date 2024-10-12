@@ -1,9 +1,10 @@
-package DSA.Algorithmns.Array.SortingAlgorithmns.SortingAlgorithms;
+package DSA.Algorithmns.Array.SortingAlgorithmns;
+
 import java.util.Arrays;
 
 public class CycleSort {
     public static void main(String[] args) {
-        int[] arr = { 5, 3, 1, 2, 4 ,7,6,8,9,10};
+        int[] arr = { 2, 2, 1, 1, 1, 2, 2 };
         cycle(arr);
         System.out.println(Arrays.toString(arr));
     }
