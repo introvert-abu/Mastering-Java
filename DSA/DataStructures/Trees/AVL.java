@@ -1,13 +1,18 @@
 package DSA.DataStructures.Trees;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class AVL {
 
     // Inner class representing a node in the AVL tree
     private class Node {
-        private int val;       // Value of the node
-        private int height;    // Height of the node
-        private Node left;     // Left child
-        private Node right;    // Right child
+        private int val; // Value of the node
+        private int height; // Height of the node
+        private Node left; // Left child
+        private Node right; // Right child
 
         // Constructor for creating a new node
         Node(int val) {
@@ -233,5 +238,38 @@ public class AVL {
         }
 
         display(node.left, level + 1); // Display left subtree
+    }
+
+    public void BFS() {
+        List<List<Integer>> result = new ArrayList<>();
+
+        BFS(this.root, new LinkedList<>(), result);
+        System.out.println(result);
+    }
+
+    private void BFS(Node node, Queue<Node> que, List<List<Integer>> result) {
+        if (node == null) {
+            return;
+        } else {
+            que.add(node);
+        }
+
+        while (!que.isEmpty()) {
+            int levelSize = que.size();
+            List<Integer> level = new ArrayList<>();
+
+            for (int i = 0; i < levelSize; i++) {
+                Node removed = que.remove();
+                level.add(removed.val);
+                if (removed.left != null) {
+                    que.add(removed.left);
+                }
+                if (removed.right != null) {
+                    que.add(removed.right);
+                }
+            }
+
+            result.add(level);
+        }
     }
 }
