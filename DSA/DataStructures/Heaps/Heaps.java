@@ -1,76 +1,74 @@
 package DSA.DataStructures.Heaps;
 
+import java.util.List;
 import java.util.ArrayList;
 
-public class Heaps<T extends Comparable<T>> {
+class Heaps<T extends Comparable<T>> {
 
-    private ArrayList<T> list;
+    private List<T> minHeap;
 
     Heaps() {
-        this.list = new ArrayList<>();
+        this.minHeap = new ArrayList<>();
     }
 
     private void swap(int first, int second) {
-        T temp = list.get(first);
-        list.set(first, list.get(second));
-        list.set(second, temp);
+        T temp = minHeap.get(first);
+        minHeap.set(first, minHeap.get(second));
+        minHeap.set(second, temp);
     }
 
     private int parent(int index) {
-        return (index - 1) / 2;
+        return index / 2;
     }
 
-    private int left(int index) {
+    private int leftChild(int index) {
         return index * 2 + 1;
     }
 
-    private int right(int index) {
+    private int rightChild(int index) {
         return index * 2 + 2;
     }
 
     public void insert(T value) {
-        list.add(value);
-        upheap(list.size() - 1);
+        minHeap.add(value);
+        upHeap(minHeap.size() - 1);
     }
 
-    private void upheap(int index) {
-        if (index == 0) {
-            return;
-        }
-        int p = parent(index);
-        if (list.get(index).compareTo(list.get(p)) < 0) {
-            swap(index, p);
-            upheap(p);
+    private void upHeap(int index) {
+        int parent = parent(index);
+        if (minHeap.get(index).compareTo(minHeap.get(parent)) < 0) {
+            swap(index, parent);
+            upHeap(parent);
         }
     }
 
     public T remove() throws Exception {
-        if (list.size() == 0) {
-            throw new Exception("Heap is Empty");
+        if (this.isEmpty()) {
+            throw new Exception("Heap is Empty!...");
         }
 
-        T removed = list.get(0);
+        swap(0, minHeap.size()-1);
 
-        T last = list.remove(list.size() - 1);
-        if (!list.isEmpty()) {
-            list.set(0, last);
+        T minimumValue = minHeap.remove(minHeap.size()-1);
+
+        if (!this.isEmpty()) {
             downHeap(0);
         }
 
-        return removed;
+        return minimumValue;
     }
 
     private void downHeap(int index) {
         int min = index;
-        int left = left(index);
-        int right = right(index);
+        int left = leftChild(index);
+        int right = rightChild(index);
 
-        if (left < list.size() && list.get(left).compareTo(list.get(min)) < 0) {
+        if (left < minHeap.size() && minHeap.get(min).compareTo(minHeap.get(left)) > 0) {
             min = left;
         }
 
-        if (right < list.size() && list.get(right).compareTo(list.get(min)) < 0) {
-            min = right;
+        if (right < minHeap.size() && minHeap.get(min).compareTo(minHeap.get(right)) > 0) {
+            min = left;
         }
 
         if (min != index) {
@@ -79,21 +77,39 @@ public class Heaps<T extends Comparable<T>> {
         }
     }
 
-    public ArrayList<T> heapSort() throws Exception {
-        ArrayList<T> sortedList = new ArrayList<>();
-
-        while (!list.isEmpty()) {
-            sortedList.add(this.remove());
+    public List<T> heapSort() throws Exception {
+        List<T> list = new ArrayList<>();
+        while (!this.isEmpty()) {
+            list.add(this.remove());
         }
 
-        return sortedList;
+        return list;
     }
 
-    public T get() throws Exception {
-        if (list.isEmpty()) {
-            throw new Exception("Heap is Empty!");
+    public T peek() throws Exception {
+        if (minHeap.isEmpty()) {
+            throw new Exception("Heap is Empty!...");
         }
 
-        return list.get(0);
+        return minHeap.get(0);
+    }
+
+    public String toString() {
+        String s = "";
+        s += "[";
+        for (T t : minHeap) {
+            if (t == minHeap.get(minHeap.size()-1)) {
+                s += t;
+            } else {
+                s += t + ", ";
+            }
+        }
+        s += "]";
+
+        return s;
+    }
+
+    public boolean isEmpty() {
+        return minHeap.isEmpty();
     }
 }

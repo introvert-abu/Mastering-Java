@@ -1,7 +1,5 @@
 package DSA.DataStructures.Heaps;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
         try {
@@ -11,11 +9,10 @@ public class Main {
             heap.insert(20);
             heap.insert(50);
             heap.insert(75);
-            System.out.println(heap.get());
             System.out.println(heap.remove());
-            System.out.println(heap.get());
-            ArrayList<Integer> list = heap.heapSort();
-            System.out.println(list);
+            System.out.println(heap);
+            System.out.println(heap.heapSort());
+            System.out.println(heap);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
