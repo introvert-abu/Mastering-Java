@@ -18,7 +18,7 @@ class Heaps<T extends Comparable<T>> {
     }
 
     private int parent(int index) {
-        return index / 2;
+        return (index -1 ) / 2;
     }
 
     private int leftChild(int index) {
@@ -68,7 +68,7 @@ class Heaps<T extends Comparable<T>> {
         }
 
         if (right < minHeap.size() && minHeap.get(min).compareTo(minHeap.get(right)) > 0) {
-            min = left;
+            min = right;
         }
 
         if (min != index) {
