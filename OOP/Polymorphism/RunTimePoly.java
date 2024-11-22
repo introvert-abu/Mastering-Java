@@ -1,4 +1,4 @@
-package OOP.Poly;
+package OOP.Polymorphism;
 
 public class RunTimePoly {
     public static void main(String[] args) {
