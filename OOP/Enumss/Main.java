@@ -1,3 +1,13 @@
+class Main {
+    public static void main(String[] args) {
+        WeekDays[] days = WeekDays.values();
+
+        for (WeekDays day : days) {
+            System.out.println(day + " " + day.getDay());
+        }
+    }
+}
+
 enum WeekDays {
     sunday(1), monday(2), tuesday(3), wednesday(4), thursday(5), friday(6), saturday(7);
 
@@ -13,15 +23,5 @@ enum WeekDays {
 
     WeekDays(int day) {
         this.day = day;
-    }
-}
-
-class Main {
-    public static void main(String[] args) {
-        WeekDays[] days = WeekDays.values();
-
-        for (WeekDays day : days) {
-            System.out.println(day + " " + day.getDay());
-        }
     }
 }

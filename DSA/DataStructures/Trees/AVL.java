@@ -1,7 +1,7 @@
 package DSA.DataStructures.Trees;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
 
@@ -243,7 +243,7 @@ public class AVL {
     public void BFS() {
         List<List<Integer>> result = new ArrayList<>();
 
-        BFS(this.root, new LinkedList<>(), result);
+        BFS(this.root, new ArrayDeque<>(), result);
         System.out.println(result);
     }
 
