@@ -1,4 +1,4 @@
-package OOP;
+package DSA.DataStructures.ArraysAndArrayList;
 
 public class CustomArrayList {
     private final int DEFAULT_SIZE = 0;
