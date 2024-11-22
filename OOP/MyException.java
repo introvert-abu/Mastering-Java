@@ -1,4 +1,4 @@
-package OOPS;
+package OOP;
 
 // Every exception classes extends Exception class
 public class MyException extends Exception {

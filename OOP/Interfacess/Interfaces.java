@@ -1,9 +1,3 @@
-package OOPS;
-
-// Interfaces are introduced in order to fill the gap of multiple inheritance
-// Interfaces contains only public abstract functions and public static final variables
-// abstract function is just a function with only name and does not contain any body 
-// Classes those implements these functions(I mean Interface) must override those functions
 public class Interfaces implements A, B {
 
     @Override

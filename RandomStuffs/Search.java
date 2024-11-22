@@ -1,3 +1,4 @@
+package RandomStuffs;
 public class Search {
 
     public int linearSearch(int[] arr, int target) {

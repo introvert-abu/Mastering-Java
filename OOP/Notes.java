@@ -1,4 +1,4 @@
-package OOPS;
+package OOP;
 
 public class Notes {
     public static void main(String[] args) {
@@ -17,19 +17,19 @@ public class Notes {
         // student[3] = new Students(student[2]);
 
         // for (int i = 1; i <= 3; i++) {
-        //     if (i == 3) {
-        //         System.out.println("Copied from above Using constructor");
-        //     }
-        //     System.out.print(student[i].rno + " - ");
-        //     System.out.print(student[i].mark + " - ");
-        //     System.out.print(student[i].dept);
-        //     System.out.println();
+        // if (i == 3) {
+        // System.out.println("Copied from above Using constructor");
         // }
-        
+        // System.out.print(student[i].rno + " - ");
+        // System.out.print(student[i].mark + " - ");
+        // System.out.print(student[i].dept);
+        // System.out.println();
+        // }
+
         Object[] obj = new Object[5];
         obj[0] = "Abu";
         obj[1] = 21;
-        obj[2] = new int[]{1,2,3,4,5};
+        obj[2] = new int[] { 1, 2, 3, 4, 5 };
 
         for (int i = 0; i < obj.length; i++) {
             System.out.println(obj[i]);
@@ -38,12 +38,11 @@ public class Notes {
     }
 }
 
-
 class Students {
     int rno;
     String dept;
     float mark;
-    
+
     Students() {
         this.rno = 000;
         this.dept = "I am from no parameter constructor";
@@ -56,7 +55,7 @@ class Students {
         this.mark = m;
     }
 
-    Students (Students other) {
+    Students(Students other) {
         this.rno = other.rno;
         this.dept = other.dept;
         this.mark = other.mark;

@@ -1,3 +1,4 @@
+package RandomStuffs;
 public class SortArrays {
     public static void main(String[] args) {
         int[] arr = { 23,54,67,32,55,11,23,54};

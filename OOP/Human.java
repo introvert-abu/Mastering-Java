@@ -1,4 +1,4 @@
-package OOPS;
+package OOP;
 
 public class Human implements Cloneable {
     String name;

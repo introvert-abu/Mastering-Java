@@ -1,4 +1,4 @@
-package OOPS;
+package OOP;
 
 public class CustomArrayList {
     private final int DEFAULT_SIZE = 0;

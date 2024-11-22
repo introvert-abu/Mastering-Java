@@ -1,4 +1,4 @@
-package OOPS;
+package OOP;
 
 public class CustomGenArrayList<T extends Number> {
     private final int DEFAULT_SIZE = 0;
