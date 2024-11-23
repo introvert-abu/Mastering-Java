@@ -1,3 +1,5 @@
+package OOP.Interfacesss;
+
 public class FunctionalInterfaceExample {
     public static void main(String[] args) {
         Fun w = (a, b) -> a + b;

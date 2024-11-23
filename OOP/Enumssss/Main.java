@@ -1,3 +1,5 @@
+package OOP.Enumssss;
+
 class Main {
     public static void main(String[] args) {
         WeekDays[] days = WeekDays.values();

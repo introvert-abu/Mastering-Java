@@ -1,3 +1,5 @@
+package OOP.Interfacesss;
+
 public class Interfaces implements A, B {
 
     @Override
