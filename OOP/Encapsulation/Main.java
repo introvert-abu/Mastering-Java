@@ -12,6 +12,8 @@ class Node {
         this.next = null;
     }
 
+    
+
     Node (int val, Node next) {
         this.val = val;
         this.next = next;
