@@ -1,17 +1,18 @@
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Game {
     private char[][] board;
+    Queue<SnakeNode> snakeBody;
     private int rows, cols;
 
     public Game(int r, int c) throws Exception {
+        this.snakeBody = new LinkedList<>();
         this.board = new char[r][c];
+
         if (r <= 0)
             throw new Exception("Row shouldn't be lesser than or equals to 0");
         if (c < 0)
@@ -41,61 +42,61 @@ public class Game {
     }
 
     public void startGame() {
-        int row = 0, col = 0;
-        int rows = this.board.length, cols = this.board[0].length;
-
-        Queue<SnakeNode> snakeBody = new LinkedList<>();
-        Set<String> snakeNodes = new HashSet<>();
         Scanner sc = new Scanner(System.in);
-        snakeBody.add(new SnakeNode(row, col));
-        snakeNodes.add(row + "" + col);
-        board[row][col] = '.';
-
-        System.out.println("-----> Controls W A S D <------");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        while (isValid(row, col, rows, cols)) {
-            printBoard();
-
-            System.out.print("Direction : ");
-            int[] nextDiection = nextDirection(sc, sc.next().charAt(0));
-            row += nextDiection[0];
-            col += nextDiection[1];
-            System.out.println();
-
-            SnakeNode newNode = new SnakeNode(row, col);
-            boolean isSnakeBody = snakeNodes.contains(row + "" + col);
-
-            if (!isValid(row, col, rows, cols) || isSnakeBody)
-                break;
-
-            if (this.board[row][col] != 'x') {
-                SnakeNode tailNode = snakeBody.poll();
-                int tailRow = tailNode.getRow(), tailCol = tailNode.getCol();
-                snakeNodes.remove(tailRow + "" + tailCol);
-                this.board[tailRow][tailCol] = 'O';
-            } else {
-                this.board[row][col] = '.';
-                setObtragle(rows, cols);
-            }
-
-            this.board[row][col] = '.';
-            snakeBody.add(newNode);
-            snakeNodes.add(row + "" + col);
-        }
-
-        System.out.println("Game Over! \n");
-        System.out.print("Wanna try again ? Pres Y/N");
+        moveSnake(sc, 0, 0);
+	System.out.println("Wanna play Again ?");
         startAgain(sc);
-
         sc.close();
     }
 
+    private void moveSnake(Scanner sc, int r, int c) {
+        if (this.isValid(r, c)) {
+            if (this.board[r][c] == '.') {
+                System.out.println("Game Over!!!");
+                return;
+            }
+            char prevVal = this.board[r][c];
+            if (this.board[r][c] == 'x') {
+                this.board[r][c] = '.';
+                this.setObtragle(this.rows, this.cols);
+            } else {
+                if (r == 0 && c == 0) {
+                    this.board[r][c] = '.';
+                } else {
+                    this.board[r][c] = '.';
+                    SnakeNode tailNode = this.snakeBody.poll();
+                    int tailRow = tailNode.getRow(), tailCol = tailNode.getCol();
+                    this.board[tailRow][tailCol] = 'O';
+                }
+            }
+            this.snakeBody.add(new SnakeNode(r, c));
+            printBoard();
+
+            System.out.print("Direction : ");
+            char nextDiection = sc.next().charAt(0);
+            System.out.println();
+
+            switch (Character.toUpperCase(nextDiection)) {
+                case 'W' -> moveSnake(sc, r-1, c); 
+                case 'A' -> moveSnake(sc, r, c-1); 
+                case 'S' -> moveSnake(sc, r+1, c); 
+                case 'D' -> moveSnake(sc, r, c+1); 
+                default -> {
+                    System.out.println("Invalid Move");
+                    this.board[r][c] = prevVal;
+                    moveSnake(sc, r, c);
+                }
+            }
+
+        } else {
+            System.out.println("Game Over!!!");
+        }
+    }
+
     private void startAgain(Scanner sc) {
+	System.out.print("Enter Y/N ");
         char choice = sc.next().charAt(0);
+	System.out.println();
         switch (Character.toUpperCase(choice)) {
             case 'Y':
                 this.setBoard(this.rows, this.cols);
@@ -103,6 +104,7 @@ public class Game {
                 this.startGame();
                 break;
             case 'N':
+                System.out.println("See ya!!!");
                 return;
             default:
                 System.out.println("Invalid Choice");
@@ -110,25 +112,8 @@ public class Game {
         }
     }
 
-    private int[] nextDirection(Scanner sc, char nextDiection) {
-        switch (Character.toUpperCase(nextDiection)) {
-            case 'W':
-                return new int[] { -1, 0 };
-            case 'A':
-                return new int[] { 0, -1 };
-            case 'S':
-                return new int[] { 1, 0 };
-            case 'D':
-                return new int[] { 0, 1 };
-            default:
-                System.out.println("Invalid Direction");
-                System.out.print("Direction : ");
-                return nextDirection(sc, sc.next().charAt(0));
-        }
-    }
-
-    private boolean isValid(int row, int col, int rows, int cols) {
-        return col >= 0 && col < cols && row >= 0 && row < rows;
+    private boolean isValid(int row, int col) {
+        return col >= 0 && col < this.cols && row >= 0 && row < this.rows;
     }
 
     private void printBoard() {
