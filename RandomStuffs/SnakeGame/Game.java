@@ -43,6 +43,13 @@ public class Game {
 
     public void startGame() {
         Scanner sc = new Scanner(System.in);
+	System.out.println("Controls : ------> W A S D <------");
+	try {
+	   Thread.sleep(3000);
+	}
+	catch(Exception e){
+	   System.out.println(e.getMessage());  
+	}
         moveSnake(sc, 0, 0);
 	System.out.println("Wanna play Again ?");
         startAgain(sc);
