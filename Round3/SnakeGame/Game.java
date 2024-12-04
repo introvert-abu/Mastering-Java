@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Game {
     private char[][] board;
-    Queue<SnakeNode> snakeBody;
     private int rows, cols;
+    Queue<SnakeNode> snakeBody;
 
     public Game(int r, int c) throws Exception {
         this.snakeBody = new LinkedList<>();
@@ -20,62 +20,53 @@ public class Game {
 
         this.rows = r;
         this.cols = c;
-        setBoard(r, c);
-        setObtragle(r, c);
-    }
-
-    private void setBoard(int r, int c) {
-        for (char[] row : board) {
-            Arrays.fill(row, 'O');
-        }
-    }
-
-    private void setObtragle(int r, int c) {
-        Random random = new Random();
-
-        int row = random.nextInt(r);
-        int col = random.nextInt(c);
-        if (this.board[row][col] == 'x' || this.board[row][col] == '.')
-            setObtragle(r, c);
-        else
-            this.board[row][col] = 'x';
+        this.setBoard(r, c);
+        this.setCherry(r, c);
     }
 
     public void startGame() {
         Scanner sc = new Scanner(System.in);
-	System.out.println("Controls : ------> W A S D <------");
-	try {
-	   Thread.sleep(3000);
-	}
-	catch(Exception e){
-	   System.out.println(e.getMessage());  
-	}
+        System.out.println("Controls : ------> W A S D <------");
+        
+        try {
+            Thread.sleep(3000);
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         moveSnake(sc, 0, 0);
-	System.out.println("Wanna play Again ?");
+        System.out.println("Wanna play Again ?");
         startAgain(sc);
         sc.close();
     }
 
     private void moveSnake(Scanner sc, int r, int c) {
         if (this.isValid(r, c)) {
+
             if (this.board[r][c] == '.') {
                 System.out.println("Game Over!!!");
                 return;
             }
+            
             char prevVal = this.board[r][c];
+            
             if (this.board[r][c] == 'x') {
                 this.board[r][c] = '.';
-                this.setObtragle(this.rows, this.cols);
-            } else {
+                this.setCherry(this.rows, this.cols);
+            } 
+            else {
                 if (r == 0 && c == 0) {
                     this.board[r][c] = '.';
-                } else {
+                } 
+                else {
                     this.board[r][c] = '.';
                     SnakeNode tailNode = this.snakeBody.poll();
                     int tailRow = tailNode.getRow(), tailCol = tailNode.getCol();
                     this.board[tailRow][tailCol] = 'O';
                 }
             }
+
             this.snakeBody.add(new SnakeNode(r, c));
             printBoard();
 
@@ -84,38 +75,40 @@ public class Game {
             System.out.println();
 
             switch (Character.toUpperCase(nextDiection)) {
-                case 'W' -> moveSnake(sc, r-1, c); 
-                case 'A' -> moveSnake(sc, r, c-1); 
-                case 'S' -> moveSnake(sc, r+1, c); 
-                case 'D' -> moveSnake(sc, r, c+1); 
+                case 'W' -> moveSnake(sc, r - 1, c);
+                case 'A' -> moveSnake(sc, r, c - 1);
+                case 'S' -> moveSnake(sc, r + 1, c);
+                case 'D' -> moveSnake(sc, r, c + 1);
                 default -> {
                     System.out.println("Invalid Move");
                     this.board[r][c] = prevVal;
                     moveSnake(sc, r, c);
                 }
             }
-
-        } else {
+        } 
+        else {
             System.out.println("Game Over!!!");
         }
     }
 
     private void startAgain(Scanner sc) {
-	System.out.print("Enter Y/N ");
+        System.out.print("Enter Y/N ");
         char choice = sc.next().charAt(0);
-	System.out.println();
+        System.out.println();
+
         switch (Character.toUpperCase(choice)) {
-            case 'Y':
+            case 'Y'-> {
                 this.setBoard(this.rows, this.cols);
-                this.setObtragle(this.rows, this.cols);
+                this.setCherry(this.rows, this.cols);
                 this.startGame();
-                break;
-            case 'N':
+            }
+            case 'N' -> {
                 System.out.println("See ya!!!");
-                return;
-            default:
+            }
+            default -> {
                 System.out.println("Invalid Choice");
                 startAgain(sc);
+            }
         }
     }
 
@@ -123,11 +116,30 @@ public class Game {
         return col >= 0 && col < this.cols && row >= 0 && row < this.rows;
     }
 
+    private void setBoard(int r, int c) {
+        for (char[] row : board) {
+            Arrays.fill(row, 'O');
+        }
+    }
+
+    private void setCherry(int r, int c) {
+        Random random = new Random();
+        int row = random.nextInt(r);
+        int col = random.nextInt(c);
+
+        if (this.board[row][col] == 'x' || this.board[row][col] == '.') {
+            setCherry(r, c);
+        }
+        else {
+            this.board[row][col] = 'x';
+        }
+    }
+
     private void printBoard() {
         for (char[] row : board) {
             for (char ch : row) {
                 System.out.print(ch + " ");
-            }
+            }            
             System.out.println();
         }
     }

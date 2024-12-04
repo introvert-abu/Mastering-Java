@@ -22,10 +22,5 @@ public class SnakeNode {
     public void setCol(int col) {
         this.col = col;
     }
-
-    @Override
-    public String toString() {
-        return "Node [row=" + row + ", col=" + col + "]";
-    }
-
+    
 }
