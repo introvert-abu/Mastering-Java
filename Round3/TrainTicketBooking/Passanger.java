@@ -2,16 +2,16 @@ package TrainTicketBooking;
 
 public class Passanger {
     private int id;
-    private String name;
     private int age;
+    private String name;
     private Integer seatNo;
-    private String prefference;
+    private char prefference;
 
-    public Passanger(int id, String name, int age, Integer seatNO, String prefference) {
+    public Passanger(int id, String name, int age, Integer seatNo, char prefference) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.seatNo = seatNO;
+        this.seatNo = seatNo;
         this.prefference = prefference;
     }
 
@@ -43,15 +43,15 @@ public class Passanger {
         return seatNo;
     }
 
-    public void setSeatNo(Integer seatNO) {
-        this.seatNo = seatNO;
+    public void setSeatNo(Integer seatNo) {
+        this.seatNo = seatNo;
     }
 
-    public String getPrefference() {
+    public char getPrefference() {
         return prefference;
     }
 
-    public void setPrefference(String ticketStatus) {
+    public void setPrefference(char ticketStatus) {
         this.prefference = ticketStatus;
     }
 }

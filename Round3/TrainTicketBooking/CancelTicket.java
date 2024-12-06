@@ -10,114 +10,145 @@ public class CancelTicket {
 
         switch (choice) {
             case 1 -> {
-                this.cancelBookedTicket(sc, book, rac, waiting);
+                this.cancelBooked(sc, book, rac, waiting);
             }
             case 2 -> {
-                this.cancelRacTicket(sc, rac, waiting);
+                this.cancelRacList(sc, rac, waiting);
             }
             case 3 -> {
-                this.cancelWaitingTicket(sc, waiting);
+                this.cancelWaitingList(sc, waiting);
             }
             default -> {
-                System.out.println("Invalid Choice");
-                System.out.println();
+                System.out.println("Invalid choice!");
                 run(sc, book, rac, waiting);
             }
         }
     }
 
-    private void cancelBookedTicket(Scanner sc, BookTicket book, RacList rac,
-            WaitingList waiting) {
-
-        System.out.print("Enter Ticket Id : ");
+    private void cancelWaitingList(Scanner sc, WaitingList waiting) {
+        System.out.println("Enter ticket id below ");
         int ticketId = sc.nextInt();
-        System.out.println();
 
-        if (book.getPassangerMap().containsKey(ticketId)) {
-            Passanger passanger = book.getPassangerMap().get(ticketId);
-
-            boolean hasNoRac = false;
-            if (rac.getOccupied() != 0) {
-                hasNoRac = true;
-                Passanger racTicket = rac.getPassangers().poll();
-                racTicket.setPrefference(passanger.getPrefference());
-                racTicket.setSeatNo(passanger.getSeatNo());
-                book.getPassangerMap().put(racTicket.getId(), racTicket);
-                book.getPassangers().offer(racTicket);
-
-                if (waiting.getOccupied() != 0) {
-                    Passanger waitingPassanger = waiting.getPassangers().poll();
-                    rac.getPassangers().offer(waitingPassanger);
-                    rac.getPassangerMap().put(waitingPassanger.getId(), waitingPassanger);
-                    waiting.setOccupied(waiting.getOccupied() - 1);
-                } else {
-                    rac.setOccupied(rac.getOccupied() - 1);
-                }
-
-            }
-
-            book.getPassangers().remove(passanger);
-            book.getPassangerMap().remove(ticketId);
-            if (!hasNoRac) {
-                book.setOccupied(book.getOccupied() - 1);
-            }
-            System.out.println("Ticket Canceled Successfully!!!");
-            return;
-        }
-
-        System.out.println("Invalid Id");
-        System.out.println();
-    }
-
-    private void cancelRacTicket(Scanner sc, RacList rac, WaitingList waiting) {
-        System.out.print("Enter Ticket Id : ");
-        int ticketId = sc.nextInt();
-        System.out.println();
-
-        if (rac.getPassangerMap().containsKey(ticketId)) {
-            Passanger passanger = rac.getPassangerMap().get(ticketId);
-
-            if (waiting.getOccupied() != 0) {
-                Passanger waitingPassanger = waiting.getPassangers().poll();
-                rac.getPassangers().offer(waitingPassanger);
-                rac.getPassangerMap().put(waitingPassanger.getId(), waitingPassanger);
-            }
-
-            rac.getPassangers().remove(passanger);
-            rac.getPassangerMap().remove(ticketId);
-            rac.setOccupied(rac.getOccupied() - 1);
-
-            System.out.println("Ticket Cancelled Successfully");
+        if (waiting.getPassangers().containsKey(ticketId)) {
+            waiting.remove(ticketId);
+            System.out.println("Ticket Cancelled");
             System.out.println();
-            return;
-        }
 
-        System.out.println("Invalid Id");
+        } else {
+            System.out.println("Invalid TicketId ");
+            System.out.println();
+        }
     }
 
-    private void cancelWaitingTicket(Scanner sc, WaitingList waiting) {
-        System.out.print("Enter Ticket Id : ");
+    private void cancelRacList(Scanner sc, RacList rac, WaitingList waiting) {
+        System.out.println("Enter ticket id below ");
         int ticketId = sc.nextInt();
-        System.out.println();
 
-        if (waiting.getPassangerMap().containsKey(ticketId)) {
-            Passanger passanger = waiting.getPassangerMap().get(ticketId);
+        if (rac.getPassangers().containsKey(ticketId)) {
+            rac.remove(ticketId);
 
-            waiting.getPassangers().remove(passanger);
-            waiting.getPassangerMap().remove(ticketId);
-            System.out.println("Ticket Cancelled Successfully");
-            waiting.setOccupied(waiting.getOccupied() - 1);
-            return;
+            if (!waiting.isEmpty()) {
+                Passanger waitingPassanger = waiting.removeFirst();
+                rac.add(waitingPassanger);
+            }
+
+            System.out.println("Ticket Cancelled");
+            System.out.println();
+        } else {
+
+            System.out.println("Invalid TicketId ");
+            System.out.println();
+        }
+    }
+
+    private void cancelBooked(Scanner sc, BookTicket book, RacList rac, WaitingList waiting) {
+        System.out.println("Enter ticket id below ");
+        int ticketId = sc.nextInt();
+
+        if (book.getuPassangers().containsKey(ticketId)) {
+            Passanger removedPassanger = book.getuPassangers().remove(ticketId);
+
+            if (!rac.isEmpty()) {
+                Passanger racPassanger = rac.removeFirst();
+                racPassanger.setSeatNo(removedPassanger.getSeatNo());
+                racPassanger.setPrefference(removedPassanger.getPrefference());
+                book.getuPassangers().put(racPassanger.getId(), racPassanger);
+
+                if (!waiting.isEmpty()) {
+                    Passanger waitingPassanger = waiting.removeFirst();
+                    rac.add(waitingPassanger);
+                }
+            } 
+            
+            else {
+                book.setOccupiedU(book.getOccupiedU()-1);
+                book.getEmptySeats().add(removedPassanger.getSeatNo());
+            }
+
+            System.out.println("Ticket Cancelled");
+            System.out.println();
         }
 
-        System.out.println("Invalid Id");
-        System.out.println();
+        else if (book.getmPassangers().containsKey(ticketId)) {
+            Passanger removedPassanger = book.getmPassangers().remove(ticketId);
+
+            if (!rac.isEmpty()) {
+                Passanger racPassanger = rac.removeFirst();
+                racPassanger.setSeatNo(removedPassanger.getSeatNo());
+                racPassanger.setPrefference(removedPassanger.getPrefference());
+                book.getmPassangers().put(racPassanger.getId(), racPassanger);
+
+                if (!waiting.isEmpty()) {
+                    Passanger waitingPassanger = waiting.removeFirst();
+                    rac.add(waitingPassanger);
+                }
+            } 
+            
+            else {
+                book.setOccupiedM(book.getOccupiedM()-1);
+                book.getEmptySeats().add(removedPassanger.getSeatNo());
+            }
+
+            System.out.println("Ticket Cancelled");
+            System.out.println();
+        }
+
+        else if (book.getlPassangers().containsKey(ticketId)) {
+            Passanger removedPassanger = book.getlPassangers().remove(ticketId);
+
+            if (!rac.isEmpty()) {
+                Passanger racPassanger = rac.removeFirst();
+                racPassanger.setSeatNo(removedPassanger.getSeatNo());
+                racPassanger.setPrefference(removedPassanger.getPrefference());
+                book.getlPassangers().put(racPassanger.getId(), racPassanger);
+
+                if (!waiting.isEmpty()) {
+                    Passanger waitingPassanger = waiting.removeFirst();
+                    rac.add(waitingPassanger);
+                }
+            } 
+            
+            else {
+                book.setOccupiedL(book.getOccupiedL()-1);
+                book.getEmptySeats().add(removedPassanger.getSeatNo());
+            }
+
+            System.out.println("Ticket Cancelled");
+            System.out.println();
+        }
+
+        else {
+            System.out.println("Invalid TicketId!");
+            System.out.println();
+        }
     }
 
     private void showOptions() {
-        System.out.println("Choose option");
-        System.out.println("1.Cancel Booked Ticket");
-        System.out.println("2.Cancel Rac Ticket");
-        System.out.println("3.Cancel Waiting Ticket");
+        System.out.println("Choose any one");
+        System.out.println("1.Cancel booked ticket ");
+        System.out.println("2.Cancel rac ticket ");
+        System.out.println("3.Cancel from waitign list ");
+        System.out.println();
     }
+
 }

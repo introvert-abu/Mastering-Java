@@ -3,10 +3,10 @@ package TrainTicketBooking;
 import java.util.Scanner;
 
 public class Train {
-    private RacList rac;
-    private BookTicket book;
-    private CancelTicket cancel;
-    private WaitingList waiting;
+    private final RacList rac;
+    private final BookTicket book;
+    private final CancelTicket cancel;
+    private final WaitingList waiting;
 
     public Train() {
         this.rac = new RacList();
@@ -19,9 +19,10 @@ public class Train {
         this.start(new Scanner(System.in));
     }
 
-    private void start(Scanner sc) {
+    private void start(final Scanner sc) {
         this.showOptions();
-        int choice = sc.nextInt();
+        final int choice = sc.nextInt();
+
         switch (choice) {
             case 1 -> {
                 this.book.bookTicket(sc, rac, waiting);
@@ -30,13 +31,13 @@ public class Train {
                 cancel.run(sc, book, rac, waiting);
             }
             case 3 -> {
-                this.book.showTickets();
+                this.book.showPassangers();
             }
             case 4 -> {
-                rac.showRacList();
+                this.rac.showPassangersList();
             }
             case 5 -> {
-                waiting.showWaitingList();
+                this.waiting.showPassangersList();
             }
             case 6 -> {
                 System.out.println("\nSee ya");
@@ -59,5 +60,6 @@ public class Train {
         System.out.println("4. Show RAC List ");
         System.out.println("5. Show waiting List ");
         System.out.println("6. Exit ");
+        System.out.println();
     }
 }

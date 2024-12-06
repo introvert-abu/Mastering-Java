@@ -6,118 +6,209 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class BookTicket {
-    private static final int CAPACITY = 3;
+public class BookTicket{
 
-    private int id;
-    private int occupied;
+    private static final int TOTAL_CAPACITY = 6;
+    private static final int U_CAPACITY = 2;
+    private static final int M_CAPACITY = 2;
+    private static final int L_CAPACITY = 2;
 
-    private Queue<Passanger> passangers;
-    private Map<Integer, Passanger> passangerMap;
+    private int id = 1;
+    private int seatNo = 1;
+    private int occupiedU = 0;
+    private int occupiedM = 0;
+    private int occupiedL = 0;
 
-    public BookTicket() {
-        this.id = 1;
-        this.passangers = new LinkedList<>();
-        this.passangerMap = new HashMap<>();
+    Map<Integer, Passanger> uPassangers = new HashMap<>();
+    Map<Integer, Passanger> mPassangers = new HashMap<>();
+    Map<Integer, Passanger> lPassangers = new HashMap<>();
+    Queue<Integer> emptySeats = new LinkedList<>();
+
+    public int getOccupiedU() {
+        return occupiedU;
     }
 
-    public int getOccupied() {
-        return occupied;
+    public void setOccupiedU(int occupiedU) {
+        this.occupiedU = occupiedU;
     }
 
-    public void setOccupied(int occupied) {
-        this.occupied = occupied;
+    public int getOccupiedM() {
+        return occupiedM;
     }
 
-    public Queue<Passanger> getPassangers() {
-        return passangers;
+    public void setOccupiedM(int occupiedM) {
+        this.occupiedM = occupiedM;
     }
 
-    public Map<Integer, Passanger> getPassangerMap() {
-        return passangerMap;
+    public int getOccupiedL() {
+        return occupiedL;
+    }
+
+    public void setOccupiedL(int occupiedL) {
+        this.occupiedL = occupiedL;
+    }
+
+    public Map<Integer, Passanger> getuPassangers() {
+        return uPassangers;
+    }
+
+    public Map<Integer, Passanger> getmPassangers() {
+        return mPassangers;
+    }
+
+    public Map<Integer, Passanger> getlPassangers() {
+        return lPassangers;
+    }
+
+    public Queue<Integer> getEmptySeats() {
+        return emptySeats;
     }
 
     public void bookTicket(Scanner sc, RacList rac, WaitingList waiting) {
         if (waiting.isFull()) {
-            System.out.println("Sorry to say but we're out of tickets");
-            System.out.println();
+            System.out.println("Sorry we are out of tickets!");
             return;
         }
 
-        System.out.print("Enter Your Name : ");
+        System.out.println("Enter your name : ");
         String name = sc.next();
         System.out.println();
 
-        System.out.print("Enter Your Age : ");
+        System.out.println("Enter your age : ");
         int age = sc.nextInt();
         System.out.println();
 
-        System.out.print("Enter Your Prefference : ");
-        String prefference = sc.next();
-        System.out.println();
+        char prefference = this.askPrefference(sc);
 
-        if (!this.isFull()) {
-            Passanger ticket = new Passanger(this.id, name, age, this.occupied + 1, prefference);
-            this.id++;
-            this.occupied++;
-            this.book(ticket);
+        Passanger passanger = new Passanger(this.id, name, age, null, prefference);
+
+        if (this.seatNo <= BookTicket.TOTAL_CAPACITY + 1) {
+            passanger.setSeatNo(this.seatNo++);
+        } else if (!emptySeats.isEmpty()) {
+            passanger.setSeatNo(emptySeats.poll());
+        }
+
+        if (this.isFull()) {
+            this.checkRac(rac, waiting, passanger);
         } else {
-            Passanger ticket = new Passanger(this.id, name, age, null, prefference);
-            this.id++;
-            this.checkRAC(ticket, rac, waiting);
+            switch (Character.toUpperCase(prefference)) {
+                case 'U' -> {
+                    System.out.println("Booking Success your ticketId is " + this.id);
+                    this.uPassangers.put(this.id++, passanger);
+                    this.occupiedU++;
+                }
+                case 'M' -> {
+                    System.out.println("Booking Success your ticketId is " + this.id);
+                    this.mPassangers.put(this.id++, passanger);
+                    this.occupiedM++;
+                }
+                case 'L' -> {
+                    System.out.println("Booking Success your ticketId is " + this.id);
+                    this.lPassangers.put(this.id++, passanger);
+                    this.occupiedL++;
+                }
+                default -> {
+                    System.out.println("Booking cancelled");
+                }
+            }
         }
     }
 
-    private void book(Passanger ticket) {
-        this.passangers.offer(ticket);
-        this.passangerMap.put(this.id, ticket);
-
-        System.out.println("Booking Confirmed ");
-        System.out.println("Your booking id is " + (this.id - 1) + " and your seat is " + this.occupied);
-        System.out.println();
-    }
-
-    private void checkRAC(Passanger passanger, RacList rac, WaitingList waiting) {
-        if (!rac.isFull()) {
+    private void checkRac(RacList rac, WaitingList waiting, Passanger passanger) {
+        this.id++;
+        if (rac.isFull()) {
+            System.out.println("You are in waiting list your id is " + (this.id - 1));
+            waiting.add(passanger);
+        } else {
+            System.out.println("You are in Rac List your ticketId is " + (this.id - 1));
             rac.add(passanger);
-            rac.getPassangerMap().put(this.id - 1, passanger);
-
-            System.out.println("Sorry no seats are available you are booked in RAC list");
-            System.out.println("Your booking id is " + (this.id - 1));
-            System.out.println();
-        } else {
-
-            this.checkWaitingList(passanger, waiting);
         }
     }
 
-    private void checkWaitingList(Passanger ticket, WaitingList waiting) {
-        waiting.add(ticket);
-        waiting.getPassangerMap().put(this.id - 1, ticket);
-
-        System.out.println("You are in waiting list");
-        System.out.println("Your booking id is " + (this.id - 1));
+    private char askPrefference(Scanner sc) {
+        System.out.println("Enter your Prefference : ");
+        char prefference = sc.next().charAt(0);
         System.out.println();
+
+        if (this.isFull()) {
+            return prefference;
+        }
+
+        switch (Character.toUpperCase(prefference)) {
+            case 'U' -> {
+                if (this.checkAvailablity(this.uPassangers, BookTicket.U_CAPACITY)) {
+                    return 'U';
+                } else {
+                    return this.showAvailablity(sc);
+                }
+            }
+            case 'M' -> {
+                if (this.checkAvailablity(this.mPassangers, BookTicket.M_CAPACITY)) {
+                    return 'M';
+                } else {
+                    return this.showAvailablity(sc);
+                }
+            }
+            case 'L' -> {
+                if (this.checkAvailablity(this.lPassangers, BookTicket.L_CAPACITY)) {
+                    return 'L';
+                } else {
+                    return this.showAvailablity(sc);
+                }
+            }
+            case 'C' -> {
+                return 'C';
+            }
+            default -> {
+                System.out.println("Invalid Prefference!!");
+                return askPrefference(sc);
+            }
+        }
     }
 
-    public void showTickets() {
-        if (occupied == 0) {
-            System.out.println("\nNo passangers found!!\n");
-            return;
-        }
-        for (Passanger passanger : passangers) {
-            System.out.println("------------------------------------");
-            System.out.println("Passanger ticket id : " + passanger.getId());
-            System.out.println("Passanger name : " + passanger.getName());
-            System.out.println("Passanger age : " + passanger.getAge());
-            System.out.println("Passanger seat no : " + passanger.getSeatNo());
-            System.out.println("Passanger Prefference : " + passanger.getPrefference());
-            System.out.println("------------------------------------");
-        }
-        System.out.println();
+    private boolean checkAvailablity(Map<Integer, Passanger> passangers, int totalPassangers) {
+        return passangers.size() < totalPassangers;
     }
 
     private boolean isFull() {
-        return this.occupied == BookTicket.CAPACITY;
+        return this.occupiedL + this.occupiedM + this.occupiedU == BookTicket.TOTAL_CAPACITY;
+    }
+
+    private boolean isEmpty() {
+        return this.occupiedL + this.occupiedM + this.occupiedU == 0;
+    }
+
+    private char showAvailablity(Scanner sc) {
+        System.out.println("------- Available seats --------");
+        System.out.println("U seats : " + (BookTicket.U_CAPACITY - this.occupiedU));
+        System.out.println("M seats : " + (BookTicket.M_CAPACITY - this.occupiedM));
+        System.out.println("L seats : " + (BookTicket.L_CAPACITY - this.occupiedL));
+        System.out.println("Press C to cancel!!!");
+        System.out.println("Wanna switch ?");
+        return this.askPrefference(sc);
+    }
+
+    public void showPassangers() {
+        if (this.isEmpty()) {
+            System.out.println("No passangers found");
+            return;
+        }
+
+        this.showPassangersList(uPassangers);
+        this.showPassangersList(mPassangers);
+        this.showPassangersList(lPassangers);
+    }
+
+    private void showPassangersList(Map<Integer, Passanger> passangers) {
+        for (Passanger passanger : passangers.values()) {
+            System.out.println("----------------------");
+            System.out.println("Passanger id : " + passanger.getId());
+            System.out.println("Passanger name : " + passanger.getName());
+            System.out.println("Passanger age : " + passanger.getAge());
+            System.out.println("Passanger seatNo : " + passanger.getSeatNo());
+            System.out.println("Passanger prefference : " + passanger.getPrefference());
+            System.out.println("----------------------");
+        }
+        System.out.println();
     }
 }
