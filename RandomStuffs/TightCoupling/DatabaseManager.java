@@ -1,4 +1,4 @@
-package RandomStuffs.TightCoupling;
+package TightCoupling;
 
 public class DatabaseManager {
     private Database1 database = new Database1();

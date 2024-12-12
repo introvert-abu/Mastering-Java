@@ -1,4 +1,4 @@
-package RandomStuffs.TightCoupling;
+package TightCoupling;
 
 public class Database1 {
     public String getData() {

@@ -1,4 +1,4 @@
-package RandomStuffs.LooseCoupling;
+package LooseCoupling;
 
 public class Main {
     public static void main(String[] args) {

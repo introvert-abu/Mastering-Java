@@ -1,5 +1,4 @@
-package RandomStuffs.TightCoupling;
-
+package TightCoupling;
 
 public class Main {
     public static void main(String[] args) {

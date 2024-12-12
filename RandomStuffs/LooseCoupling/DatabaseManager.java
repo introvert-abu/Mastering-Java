@@ -1,4 +1,4 @@
-package RandomStuffs.LooseCoupling;
+package LooseCoupling;
 
 public class DatabaseManager {
     private DataBaseProvider dataBaseProvider;

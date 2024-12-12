@@ -1,4 +1,4 @@
-package RandomStuffs;
+
 
 public class LargestDigit {
     public static void main(String[] args) {

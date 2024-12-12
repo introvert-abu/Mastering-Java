@@ -1,4 +1,4 @@
-package RandomStuffs;
+
 import java.util.Scanner;
 
 public class PrimeNumber {
